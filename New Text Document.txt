@@ -1,0 +1,8 @@
+Online Food orders - Zomato App, Swiggy, Uber Eats
+
+if you order more than Rs.499
+discount = 20%
+if you order more than Rs.999
+discount = 30%
+if you order more than 1499
+discount = 40%
