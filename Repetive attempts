@@ -1,0 +1,12 @@
+Repetive attempts
+total_marks = 1000
+cutoff = 400
+scores = [100, 200, 300, 399, 500]
+
+# I will keep on attempting until I succeed
+year = 0
+
+while scores[year] < cutoff:
+  print(f"")
+  print("I will attempt next year")
+  year = year + 1
