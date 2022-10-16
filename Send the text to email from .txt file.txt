@@ -1,0 +1,20 @@
+import smtplib
+import os.path
+
+email = 'assassin@gmail.com' # Your email
+password = '123abc' # Your email account password
+send_to_email = 'james12@gmail.com' # Who you are sending the message to
+subject = 'subject' # The subject line
+
+file_location = # File location here
+
+with open(file_location) as f:
+    message = f.read()
+
+server = smtplib.SMTP('smtp.gmail.com', 587)
+server.starttls()
+server.login(email, password)
+text = "Subject: {}\n\n{}".format(subject , message)
+server.sendmail(email, send_to_email, text)
+server.quit()
+
