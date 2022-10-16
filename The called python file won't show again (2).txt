@@ -1,0 +1,316 @@
+# online.py (module):
+def online():
+    ...  # code to be run
+
+# Registers.py (main script):
+import online  # at start of file
+...  # some code
+...  # get rid of the onreg() function, it is not necessary
+btn1 = tk.Button(..., command=online.online)  # Line where button is created
+...  # rest of code
+
+# online.py (module) stays the same
+
+# Registers.py (main script):
+import importlib  # at start of file
+online_module = None  # at start of file, just after imports, call this variable whatever you want
+...  # some code
+def onreg():  # redo this function
+    global online_module
+    try:
+        importlib.reload(online_module)
+    except TypeError:
+        import online_module
+...  # rest of code stays the same
+
+ ----------------------- 
+# online.py (module):
+def online():
+    ...  # code to be run
+
+# Registers.py (main script):
+import online  # at start of file
+...  # some code
+...  # get rid of the onreg() function, it is not necessary
+btn1 = tk.Button(..., command=online.online)  # Line where button is created
+...  # rest of code
+
+# online.py (module) stays the same
+
+# Registers.py (main script):
+import importlib  # at start of file
+online_module = None  # at start of file, just after imports, call this variable whatever you want
+...  # some code
+def onreg():  # redo this function
+    global online_module
+    try:
+        importlib.reload(online_module)
+    except TypeError:
+        import online_module
+...  # rest of code stays the same
+
+ ----------------------- 
+# For Face_recognition
+from logging import disable
+import tkinter
+from tkinter.font import BOLD
+from cv2 import data
+import numpy as np
+import face_recognition as fr
+import cv2
+
+# SQL-CONNECTOR
+import mysql.connector
+from mysql.connector import IntegrityError
+
+# For Trainer
+import PIL.Image
+import os
+from tkinter import ttk
+
+# GUI
+from tkinter import *
+import tkinter as tk
+from tkinter import messagebox
+
+
+def create_window():
+    # USER INTERFACE
+    window = tk.Tk()
+    window.title("FACEREGISTRATION SYSTEM")
+    window.resizable(0,0)
+    # bgs = PhotoImage(file = "C://Users//So_Low//Desktop//final_recog//online_reg_img/edited2.png")
+    # labels1 = Label(window, image = bgs)
+    # labels1.place(x = 0, y = 0, relwidth= 1, relheight= 1)
+    
+    
+    
+    # UPPER DESIGN
+    l1 = tk.Label(window, text= "N O R M I",  font=("Exton Free Trial",35), fg='green')
+    l1.grid(column = 2, row= 1)
+    
+    
+    
+    # TEXT BOXES
+    l1 = tk.Label(window, text= "Name",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=3)
+    on1 = tk.Entry(window, width=40, bd=3)
+    on1.grid(column=2, row=3)
+    
+    l1 = tk.Label(window, text= "Parent/Visitor",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=5)
+    on2 = tk.Entry(window, width=40, bd=3)
+    on2.grid(column= 2, row=5)
+    
+    l1 = tk.Label(window, text= "Relationship",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=6)
+    on3 = tk.Entry(window, width=40, bd=3)
+    on3.grid(column= 2, row=6)
+    
+    l1 = tk.Label(window, text= "ID",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=7)
+    on4 = tk.Entry(window, width=19, bd=3, bg="light blue")
+    on4.grid(column=2, row=7)
+    
+    l1 = tk.Label(window, text= "Address",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=8)
+    on5 = tk.Entry(window, width=40, bd=3)
+    on5.grid(column= 2, row=8)
+    
+    l1 = tk.Label(window, text= "Contact #",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=9)
+    on6 = tk.Entry(window, width=20, bd=3, bg = "light blue")
+    on6.grid(column= 2, row=9)
+    
+    def onregister():
+        if (on1.get()==""  or on2.get()=="" or on3.get()=="" or on4.get()=="" or on5.get()=="" or on6.get()==""):
+            messagebox.showinfo("Result","Please Complete the Provided Details!")
+        else:
+            databases = mysql.connector.connect(
+            host ="localhost",
+            user = "userdata",
+            password = "",
+            database = "facerecog"
+            )
+    
+            cursors = databases.cursor()
+            cursors.execute("SELECT * from record")
+            result = cursors.fetchall()
+    
+    
+            id= on4.get()
+            id = int(id)+1
+            id
+            sql = "INSERT INTO record(ids, names,course_year,positions,addresses,contact) values(%s ,%s ,%s , %s, %s, %s)"
+            val = (id, on1.get(), on2.get(), on3.get(), on5.get(), on6.get())
+            try:
+                cursors.execute(sql,val)
+                databases.commit()
+            except IntegrityError:
+                messagebox.showinfo("Error","ID Is Already Exist")
+                return onregister
+            finally:
+                cursors.close()
+                databases.close()
+    
+            on2.delete(0,END)
+            on3.delete(0,END)
+            on4.delete(0,END)
+            on5.delete(0,END)
+            on6.delete(0,END)
+    
+            DirPath = "C:/Users/So_Low/Desktop/final_recog/online_reg_img/"
+            Files = os.listdir(DirPath)
+    
+            for File in Files:
+                imgPath = os.path.join(DirPath, File)
+                image = cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE)
+                cv2.imwrite("C:/Users/So_Low/Desktop/final_recog/img/"+str (on1.get())+"." +str(id)+".jpg",image)
+                
+    btns1 = tk.Button(window,text= "Save To Database", font=("Bahnschrift",15),bg="light blue",fg="black",command=onregister)
+    btns1.grid(column=2,row=40)
+    l1 = tk.Label(window, text= " ",  font=("Bahnschrift",15))
+    l1.grid(column = 2, row=35)
+    
+    window.geometry("500x400")
+    window.mainloop()
+
+# This won't run anything anymore. It'll just define the function `create_window`.
+import online
+
+# We also don't need the function `onreg`. We can use `online.create_window` directly instead.
+button1 = tk.Button(window, text="Online Register", font=("Bahnschrift",15), bg="light blue", fg="black", command=online.create_window)
+button1.grid(column=1, row=35)
+
+ ----------------------- 
+# For Face_recognition
+from logging import disable
+import tkinter
+from tkinter.font import BOLD
+from cv2 import data
+import numpy as np
+import face_recognition as fr
+import cv2
+
+# SQL-CONNECTOR
+import mysql.connector
+from mysql.connector import IntegrityError
+
+# For Trainer
+import PIL.Image
+import os
+from tkinter import ttk
+
+# GUI
+from tkinter import *
+import tkinter as tk
+from tkinter import messagebox
+
+
+def create_window():
+    # USER INTERFACE
+    window = tk.Tk()
+    window.title("FACEREGISTRATION SYSTEM")
+    window.resizable(0,0)
+    # bgs = PhotoImage(file = "C://Users//So_Low//Desktop//final_recog//online_reg_img/edited2.png")
+    # labels1 = Label(window, image = bgs)
+    # labels1.place(x = 0, y = 0, relwidth= 1, relheight= 1)
+    
+    
+    
+    # UPPER DESIGN
+    l1 = tk.Label(window, text= "N O R M I",  font=("Exton Free Trial",35), fg='green')
+    l1.grid(column = 2, row= 1)
+    
+    
+    
+    # TEXT BOXES
+    l1 = tk.Label(window, text= "Name",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=3)
+    on1 = tk.Entry(window, width=40, bd=3)
+    on1.grid(column=2, row=3)
+    
+    l1 = tk.Label(window, text= "Parent/Visitor",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=5)
+    on2 = tk.Entry(window, width=40, bd=3)
+    on2.grid(column= 2, row=5)
+    
+    l1 = tk.Label(window, text= "Relationship",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=6)
+    on3 = tk.Entry(window, width=40, bd=3)
+    on3.grid(column= 2, row=6)
+    
+    l1 = tk.Label(window, text= "ID",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=7)
+    on4 = tk.Entry(window, width=19, bd=3, bg="light blue")
+    on4.grid(column=2, row=7)
+    
+    l1 = tk.Label(window, text= "Address",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=8)
+    on5 = tk.Entry(window, width=40, bd=3)
+    on5.grid(column= 2, row=8)
+    
+    l1 = tk.Label(window, text= "Contact #",  font=("Bahnschrift",15))
+    l1.grid(column = 1, row=9)
+    on6 = tk.Entry(window, width=20, bd=3, bg = "light blue")
+    on6.grid(column= 2, row=9)
+    
+    def onregister():
+        if (on1.get()==""  or on2.get()=="" or on3.get()=="" or on4.get()=="" or on5.get()=="" or on6.get()==""):
+            messagebox.showinfo("Result","Please Complete the Provided Details!")
+        else:
+            databases = mysql.connector.connect(
+            host ="localhost",
+            user = "userdata",
+            password = "",
+            database = "facerecog"
+            )
+    
+            cursors = databases.cursor()
+            cursors.execute("SELECT * from record")
+            result = cursors.fetchall()
+    
+    
+            id= on4.get()
+            id = int(id)+1
+            id
+            sql = "INSERT INTO record(ids, names,course_year,positions,addresses,contact) values(%s ,%s ,%s , %s, %s, %s)"
+            val = (id, on1.get(), on2.get(), on3.get(), on5.get(), on6.get())
+            try:
+                cursors.execute(sql,val)
+                databases.commit()
+            except IntegrityError:
+                messagebox.showinfo("Error","ID Is Already Exist")
+                return onregister
+            finally:
+                cursors.close()
+                databases.close()
+    
+            on2.delete(0,END)
+            on3.delete(0,END)
+            on4.delete(0,END)
+            on5.delete(0,END)
+            on6.delete(0,END)
+    
+            DirPath = "C:/Users/So_Low/Desktop/final_recog/online_reg_img/"
+            Files = os.listdir(DirPath)
+    
+            for File in Files:
+                imgPath = os.path.join(DirPath, File)
+                image = cv2.imread(imgPath, cv2.IMREAD_GRAYSCALE)
+                cv2.imwrite("C:/Users/So_Low/Desktop/final_recog/img/"+str (on1.get())+"." +str(id)+".jpg",image)
+                
+    btns1 = tk.Button(window,text= "Save To Database", font=("Bahnschrift",15),bg="light blue",fg="black",command=onregister)
+    btns1.grid(column=2,row=40)
+    l1 = tk.Label(window, text= " ",  font=("Bahnschrift",15))
+    l1.grid(column = 2, row=35)
+    
+    window.geometry("500x400")
+    window.mainloop()
+
+# This won't run anything anymore. It'll just define the function `create_window`.
+import online
+
+# We also don't need the function `onreg`. We can use `online.create_window` directly instead.
+button1 = tk.Button(window, text="Online Register", font=("Bahnschrift",15), bg="light blue", fg="black", command=online.create_window)
+button1.grid(column=1, row=35)

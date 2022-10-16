@@ -1,0 +1,4 @@
+$ face_recognition ./pictures_of_people_i_know/ ./unknown_pictures/
+
+/unknown_pictures/unknown.jpg,Barack Obama
+/face_recognition_test/unknown_pictures/unknown.jpg,unknown_person

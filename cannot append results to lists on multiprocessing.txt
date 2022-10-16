@@ -1,0 +1,5 @@
+manager = Manager()
+knownEncodings = manager.list()
+knownNames = manager.list()
+no_faces = manager.list()
+error_in_image = manager.list()   

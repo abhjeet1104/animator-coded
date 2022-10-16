@@ -1,0 +1,4 @@
+from sklearn.datasets import fetch_olivetti_faces
+
+data = fetch_olivetti_faces()
+Xtrain, Xtest, Ytrain, Ytest = train_test_split(data.data, data.target, test_size=0.3, random_state=0)

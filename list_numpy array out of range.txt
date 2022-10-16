@@ -1,0 +1,7 @@
+try:
+    face = face_recognition.load_image_file("datasets/" + f)
+    encoding = face_recognition.face_encodings(face, model="cnn")[0]
+    encoded[f.split(".")[0]] = encoding
+    print("Encoding image", f)
+except Exception:
+    pass

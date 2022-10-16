@@ -1,0 +1,17 @@
+[Unit]
+Description=Start Bling
+
+[Service]
+User=pi
+Environment=DISPLAY=:0
+WorkingDirectory=/home/pi/facial_recognition
+Environment=XAUTHORITY=/home/pi/.Xauthority
+Environment="prog_path"=/home/pi/facial_recognition
+ExecStart=/usr/bin/python /home/pi/facial_recognition/run_on_start.py
+Restart=always
+RestartSec=10s
+KillMode=process
+TimeoutSec=infinity
+
+[Install]
+WantedBy=graphical.target

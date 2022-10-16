@@ -1,0 +1,16 @@
+namestodistance = [('Alice', .1), ('Bob', .3), ('Carrie', .2)]
+names_top = sorted(namestodistance, key=lambda x: x[1])
+print(names_top[:2])
+
+namestodistance = list(map(lambda x: (x[0], x[1].item()), namestodistance)
+names_top = sorted(namestodistance, key=lambda x: x[1])
+print(names_top[:2])
+
+ ----------------------- 
+namestodistance = [('Alice', .1), ('Bob', .3), ('Carrie', .2)]
+names_top = sorted(namestodistance, key=lambda x: x[1])
+print(names_top[:2])
+
+namestodistance = list(map(lambda x: (x[0], x[1].item()), namestodistance)
+names_top = sorted(namestodistance, key=lambda x: x[1])
+print(names_top[:2])

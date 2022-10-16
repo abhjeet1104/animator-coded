@@ -1,0 +1,61 @@
+names = known_face_names[top_3_matches]
+face_names.append(names)
+print(names)
+
+name = known_face_names[best_match_index]
+face_names.append(name)
+print(name)
+
+ ----------------------- 
+names = known_face_names[top_3_matches]
+face_names.append(names)
+print(names)
+
+name = known_face_names[best_match_index]
+face_names.append(name)
+print(name)
+
+ ----------------------- 
+def classify_face(im):
+    faces = encoding
+    faces_encoded = list(faces.values())
+    known_face_names = list(faces.keys())
+    #make lists into numpy arrays
+    n_faces_encoded = np.array(faces_encoded)
+    n_known_face_names = np.array(known_face_names)
+
+n_face_distances = face_recognition.face_distance(n_faces_encoded, face_encoding)
+top_3_matches = np.argsort(n_face_distances)[:3]
+
+other_matches = n_known_face_names[top_3_matches]
+print(other_matches)
+
+ ----------------------- 
+def classify_face(im):
+    faces = encoding
+    faces_encoded = list(faces.values())
+    known_face_names = list(faces.keys())
+    #make lists into numpy arrays
+    n_faces_encoded = np.array(faces_encoded)
+    n_known_face_names = np.array(known_face_names)
+
+n_face_distances = face_recognition.face_distance(n_faces_encoded, face_encoding)
+top_3_matches = np.argsort(n_face_distances)[:3]
+
+other_matches = n_known_face_names[top_3_matches]
+print(other_matches)
+
+ ----------------------- 
+def classify_face(im):
+    faces = encoding
+    faces_encoded = list(faces.values())
+    known_face_names = list(faces.keys())
+    #make lists into numpy arrays
+    n_faces_encoded = np.array(faces_encoded)
+    n_known_face_names = np.array(known_face_names)
+
+n_face_distances = face_recognition.face_distance(n_faces_encoded, face_encoding)
+top_3_matches = np.argsort(n_face_distances)[:3]
+
+other_matches = n_known_face_names[top_3_matches]
+print(other_matches)
