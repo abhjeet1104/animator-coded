@@ -1,21 +1,22 @@
-# Program to check Armstrong numbers in a certain interval
+str1 = "Race"
+str2 = "Care"
 
-lower = 100
-upper = 2000
+# convert both the strings into lowercase
+str1 = str1.lower()
+str2 = str2.lower()
 
-for num in range(lower, upper + 1):
+# check if length is same
+if(len(str1) == len(str2)):
 
-   # order of number
-   order = len(str(num))
-    
-   # initialize sum
-   sum = 0
+    # sort the strings
+    sorted_str1 = sorted(str1)
+    sorted_str2 = sorted(str2)
 
-   temp = num
-   while temp > 0:
-       digit = temp % 10
-       sum += digit ** order
-       temp //= 10
+    # if sorted char arrays are same
+    if(sorted_str1 == sorted_str2):
+        print(str1 + " and " + str2 + " are anagram.")
+    else:
+        print(str1 + " and " + str2 + " are not anagram.")
 
-   if num == sum:
-       print(num)
+else:
+    print(str1 + " and " + str2 + " are not anagram.")
